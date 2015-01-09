@@ -2,6 +2,8 @@
  * @module streamss-cat
  * @copyright 2015 commenthol
  * @licence MIT
+ *
+ * Code inspired by [stream-cat](https://github.com/micnews/stream-cat) project. (MIT-licensed)
  */
 
 'use strict';

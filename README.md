@@ -2,10 +2,14 @@
 
 > Concatenate stream2 streams to one stream
 
-![NPM version](https://badge.fury.io/js/streamss-cat.svg)
+[![NPM version](https://badge.fury.io/js/streamss-cat.svg)](https://www.npmjs.com/package/streamss-cat/)
 [![Build Status](https://secure.travis-ci.org/commenthol/streamss-cat.svg?branch=master)](https://travis-ci.org/commenthol/streamss-cat)
 
 Concatenate streams to behave like one [Readable][] Stream. This is a pure Stream2 implementation which respects also a very high number of input streams (>1000).
+
+Works with node v0.8.x and greater.
+For node v0.8.x the user-land copy [readable-stream][] is used.
+For all other node versions greater v0.8.x the built-in `stream` module is used.
 
 Credits go to [stream-cat][].
 
@@ -71,9 +75,9 @@ with the source of its origin and licence.
 ### npm scripts
 
 * `npm test`      - Run tests
-* `npm run cover` - Run istanbul code coverage (shows code coverage; open ./coverage/lcov-report/index.html after run)
-* `npm run lint`  - Linting the source (returns errors)
-* `npm run doc`   - Generate documentation from source (open ./doc/index.html after run)
+* `npm run cover` - Run istanbul code coverage (shows code coverage; open `./coverage/lcov-report/index.html` after run)
+* `npm run lint`  - Linting the source
+* `npm run doc`   - Generate documentation from source (open `./doc/index.html` after run)
 
 ## License
 
@@ -82,8 +86,9 @@ Copyright (c) 2015 commenthol (MIT License)
 See [LICENSE][] for more info.
 
 [LICENSE]: ./LICENSE
-[stream-cat]: https://github.com/substack/read-only-stream
+[stream-cat]: https://github.com/micnews/stream-cat
 [Readable]: http://nodejs.org/api/stream.html#stream_class_stream_readable
+[readable-stream]: https://github.com/isaacs/readable-stream
 
 
 
