@@ -1,0 +1,8 @@
+/node_modules
+/coverage
+/examples
+/doc
+/tmp
+.*
+*.log
+*.tgz
