@@ -11,9 +11,9 @@
     "test": "test"
   },
   "dependencies": {
-    "streamss": "~0.2.3",
+    "streamss": "~0.2.5",
     "streamss-readonly": "~0.1.0",
-    "streamss-shim": "~0.0.1"
+    "streamss-shim": "~0.0.2"
   },
   "devDependencies": {
     "mocha": "latest"
@@ -21,7 +21,7 @@
   "scripts": {
     "test": "mocha test/*.mocha.js",
     "cover": "istanbul cover _mocha --report lcov --report text -- -R dot --check-leaks test/*.mocha.js",
-    "lint": "jshint --show-non-errors *.js */*.js",
+    "lint": "eslint '*.js' '*/**.js'",
     "doc": "jsdoc -d doc -c jsdoc.json index.js lib/*.js",
     "clean": "rm -rf doc coverage"
   },

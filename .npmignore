@@ -1,8 +1,11 @@
 /node_modules
 /coverage
 /examples
+/test
 /doc
 /tmp
+jsdoc.json
+Makefile
 .*
 *.log
 *.tgz

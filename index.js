@@ -6,16 +6,16 @@
  * Code inspired by [stream-cat](https://github.com/micnews/stream-cat) project. (MIT-licensed)
  */
 
-'use strict';
+'use strict'
 
-var Streams = require('streamss-shim');
-var PassThrough = Streams.PassThrough;
-var readonly = require('streamss-readonly');
+var Streams = require('streamss-shim')
+var PassThrough = Streams.PassThrough
+var readonly = require('streamss-readonly')
 
-/// shim setImmediate for node v0.8.x
+// / shim setImmediate for node v0.8.x
 // istanbul ignore if
 if (!global.setImmediate) {
-	global.setImmediate = process.nextTick;
+  global.setImmediate = process.nextTick
 }
 
 /**
@@ -54,38 +54,37 @@ if (!global.setImmediate) {
  * @param {Readable} streams - Array of Readable Streams or Array of Functions returning Readable Streams
  * @return {Readable} A readable stream
  */
-function cat(streams) {
-	var out = PassThrough();
+function cat (streams) {
+  var out = PassThrough()
 
-	if (! Array.isArray(streams)) {
-		streams = Array.prototype.slice.call(arguments);
-	}
+  if (!Array.isArray(streams)) {
+    streams = Array.prototype.slice.call(arguments)
+  }
 
-	(function next(i){
-		var stream = streams[i];
+  (function next (i) {
+    var stream = streams[i]
 
-		if (typeof stream === 'function') {
-			stream = stream();
-		}
+    if (typeof stream === 'function') {
+      stream = stream()
+    }
 
-		if (!stream) {
-			return out.push(null);
-		}
-		stream.pipe(out, { end: false });
+    if (!stream) {
+      return out.push(null)
+    }
+    stream.pipe(out, { end: false })
 
-		stream.on('error', function(err){
-			out.emit('error', err);
-		});
+    stream.on('error', function (err) {
+      out.emit('error', err)
+    })
 
-		stream.on('end', function(){
-			setImmediate(function(){
-				next(i + 1);
-			});
-		});
+    stream.on('end', function () {
+      setImmediate(function () {
+        next(i + 1)
+      })
+    })
+  })(0)
 
-	})(0);
-
-	return readonly(out);
+  return readonly(out)
 }
 
-module.exports = cat;
+module.exports = cat
