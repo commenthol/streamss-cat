@@ -8,7 +8,7 @@
 
 'use strict'
 
-var Streams = require('streamss-shim')
+var Streams = require('stream')
 var PassThrough = Streams.PassThrough
 var readonly = require('streamss-readonly')
 

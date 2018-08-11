@@ -1,43 +1,62 @@
 {
   "name": "streamss-cat",
+  "version": "1.0.0-0",
   "description": "Concatenate stream2 streams to one stream",
-  "version": "0.1.1",
-  "main": "index.js",
-  "engines": {
-    "node": ">=0.8.0"
-  },
-  "directories": {
-    "doc": "doc",
-    "test": "test"
-  },
-  "dependencies": {
-    "streamss": "~0.2.5",
-    "streamss-readonly": "~0.1.0",
-    "streamss-shim": "~0.0.2"
-  },
-  "devDependencies": {
-    "mocha": "latest"
-  },
-  "scripts": {
-    "test": "mocha test/*.mocha.js",
-    "cover": "istanbul cover _mocha --report lcov --report text -- -R dot --check-leaks test/*.mocha.js",
-    "lint": "eslint '*.js' '*/**.js'",
-    "doc": "jsdoc -d doc -c jsdoc.json index.js lib/*.js",
-    "clean": "rm -rf doc coverage"
+  "keywords": [
+    "concat",
+    "stream2"
+  ],
+  "homepage": "https://github.com/commenthol/streamss-cat",
+  "bugs": {
+    "url": "https://github.com/commenthol/streamss-cat/issues"
   },
   "repository": {
     "type": "git",
     "url": "github.com/commenthol/streamss-cat"
   },
-  "keywords": [
-    "stream2",
-    "concat"
-  ],
-  "author": "commenthol <commenthol@gmail.com>",
-  "maintainers": "commenthol <commenthol@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/commenthol/streamss-cat/issues"
+  "author": "commenthol <commenthol@gmail.com>",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
   },
-  "homepage": "https://github.com/commenthol/streamss-cat"
+  "scripts": {
+    "all": "npm run clean && npm run lint && npm test",
+    "clean": "rimraf coverage .nyc_output",
+    "clean:all": "npm run clean && rimraf node_modules *.tgz",
+    "coverage": "nyc -r text -r html npm test",
+    "doc": "jsdoc -d doc -c jsdoc.json index.js",
+    "lint": "eslint '**/*.js'",
+    "prepublishOnly": "npm run all",
+    "test": "mocha"
+  },
+  "eslintConfig": {
+    "extends": "standard",
+    "plugins": [
+      "standard"
+    ],
+    "rules": {}
+  },
+  "dependencies": {
+    "streamss": "^1.0.0",
+    "streamss-readonly": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "rimraf": "^2.6.2"
+  },
+  "engines": {
+    "node": ">=4.5.0"
+  },
+  "maintainers": [
+    "commenthol <commenthol@gmail.com>"
+  ]
 }

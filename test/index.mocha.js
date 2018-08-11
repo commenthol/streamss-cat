@@ -26,16 +26,16 @@ describe('#cat', function () {
     var res = []
 
     cat(stream)
-    .pipe(Through(
-      function (data) {
-        assert.equal(data, abc(0))
-        res.push(data)
-      },
-      function () {
-        assert.equal(res.length, 1)
-        done()
-      })
-    )
+      .pipe(Through(
+        function (data) {
+          assert.strictEqual(data.toString(), abc(0))
+          res.push(data)
+        },
+        function () {
+          assert.strictEqual(res.length, 1)
+          done()
+        })
+      )
   })
   it('concatenate three streams', function (done) {
     var stream1 = new ReadBuffer(abc(1))
@@ -45,15 +45,15 @@ describe('#cat', function () {
     var res = ''
 
     cat(stream1, stream2, stream3)
-    .pipe(Through(
-      function (data) {
-        res += data
-      },
-      function () {
-        assert.equal(res.toString(), exp)
-        done()
-      })
-    )
+      .pipe(Through(
+        function (data) {
+          res += data
+        },
+        function () {
+          assert.strictEqual(res.toString(), exp)
+          done()
+        })
+      )
   })
   it('concatenate four streams as Array', function (done) {
     var streams = []
@@ -66,15 +66,15 @@ describe('#cat', function () {
     }
 
     cat(streams)
-    .pipe(Through(
-      function (data) {
-        res += data
-      },
-      function () {
-        assert.equal(res, exp)
-        done()
-      })
-    )
+      .pipe(Through(
+        function (data) {
+          res += data
+        },
+        function () {
+          assert.strictEqual(res, exp)
+          done()
+        })
+      )
   })
   it('concatenate thousand streams as functions', function (done) {
     var streams = []
@@ -94,15 +94,15 @@ describe('#cat', function () {
     }
 
     cat(streams)
-    .pipe(Through(
-      function (data) {
-        res += data
-      },
-      function () {
-        assert.equal(res, exp)
-        done()
-      })
-    )
+      .pipe(Through(
+        function (data) {
+          res += data
+        },
+        function () {
+          assert.strictEqual(res, exp)
+          done()
+        })
+      )
   })
   it('concatenate thousand file-streams as functions', function (done) {
     var streams = []
@@ -122,15 +122,15 @@ describe('#cat', function () {
     }
 
     cat(streams)
-    .pipe(Through(
-      function (data) {
-        res += data
-      },
-      function () {
-        assert.equal(res, exp)
-        done()
-      })
-    )
+      .pipe(Through(
+        function (data) {
+          res += data
+        },
+        function () {
+          assert.strictEqual(res, exp)
+          done()
+        })
+      )
   })
   it('early end', function (done) {
     var stream1 = new ReadBuffer(abc(1))
@@ -139,17 +139,17 @@ describe('#cat', function () {
     var exp = abc(1) + abc(2)
 
     cat(stream1, stream2)
-    .pipe(Through(
-      function (data, enc, cb) {
-        res += data
-        cb()
-        this.end()
-      },
-      function () {
-        assert.equal(res, exp.substr(0, res.length))
-        done()
-      })
-    )
+      .pipe(Through(
+        function (data, enc, cb) {
+          res += data
+          cb()
+          this.end()
+        },
+        function () {
+          assert.strictEqual(res, exp.substr(0, res.length))
+          done()
+        })
+      )
   })
   it('resulting stream is read only', function () {
     assert.ok(cat().writable === undefined)
@@ -160,10 +160,10 @@ describe('#cat', function () {
     var stream2 = new ReadBuffer(abc(2))
 
     cat(stream1, stream2)
-    .on('error', function (err) {
-      assert.ok(err instanceof Error)
-      done()
-    })
+      .on('error', function (err) {
+        assert.ok(err instanceof Error)
+        done()
+      })
 
     stream1.emit('error', new Error())
   })
@@ -174,15 +174,15 @@ describe('#cat', function () {
     var exp = abc(1) + abc(2)
 
     cat(stream1, stream2)
-    .pipe(Through(
-      function (data) {
-        res += data
-      },
-      function () {
-        assert.equal(res, exp)
-        done()
-      })
-    )
+      .pipe(Through(
+        function (data) {
+          res += data
+        },
+        function () {
+          assert.strictEqual(res, exp)
+          done()
+        })
+      )
     stream2.write(abc(2))
     stream1.write(abc(1))
     stream1.end()
