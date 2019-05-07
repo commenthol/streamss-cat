@@ -1,6 +1,6 @@
 {
   "name": "streamss-cat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Concatenate stream2 streams to one stream",
   "keywords": [
     "concat",
