@@ -8,7 +8,7 @@
 const assert = require('assert')
 const fs = require('fs')
 const path = require('path')
-const { Through, ReadBuffer } = require('streamss')
+const { through, ReadBuffer } = require('streamss')
 const cat = require('../')
 
 const fixture = path.resolve(__dirname, 'fixtures/abcdef.txt')
@@ -23,7 +23,7 @@ describe('#cat', function () {
     const res = []
 
     cat(stream)
-      .pipe(Through(
+      .pipe(through(
         function (data) {
           assert.strictEqual(data.toString(), abc(0))
           res.push(data)
@@ -42,7 +42,7 @@ describe('#cat', function () {
     let res = ''
 
     cat(stream1, stream2, stream3)
-      .pipe(Through(
+      .pipe(through(
         function (data) {
           res += data
         },
@@ -63,7 +63,7 @@ describe('#cat', function () {
     }
 
     cat(streams)
-      .pipe(Through(
+      .pipe(through(
         function (data) {
           res += data
         },
@@ -91,7 +91,7 @@ describe('#cat', function () {
     }
 
     cat(streams)
-      .pipe(Through(
+      .pipe(through(
         function (data) {
           res += data
         },
@@ -119,7 +119,7 @@ describe('#cat', function () {
     }
 
     cat(streams)
-      .pipe(Through(
+      .pipe(through(
         function (data) {
           res += data
         },
@@ -136,7 +136,7 @@ describe('#cat', function () {
     const exp = abc(1) + abc(2)
 
     cat(stream1, stream2)
-      .pipe(Through(
+      .pipe(through(
         function (data, enc, cb) {
           res += data
           cb()
@@ -165,13 +165,13 @@ describe('#cat', function () {
     stream1.emit('error', new Error())
   })
   it('quick push streams', function (done) {
-    const stream1 = Through()
-    const stream2 = Through()
+    const stream1 = through()
+    const stream2 = through()
     let res = ''
     const exp = abc(1) + abc(2)
 
     cat(stream1, stream2)
-      .pipe(Through(
+      .pipe(through(
         function (data) {
           res += data
         },

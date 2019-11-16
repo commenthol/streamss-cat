@@ -43,8 +43,8 @@
     "rules": {}
   },
   "dependencies": {
-    "streamss": "^1.0.2",
-    "streamss-readonly": "^1.0.2"
+    "streamss": "^2.0.0-0",
+    "streamss-readonly": "^2.0.0-0"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
@@ -58,7 +58,7 @@
     "rimraf": "^3.0.0"
   },
   "engines": {
-    "node": ">=4.5.0"
+    "node": ">=8.0.0"
   },
   "maintainers": [
     "commenthol <commenthol@gmail.com>"

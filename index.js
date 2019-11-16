@@ -11,44 +11,38 @@
 const { PassThrough } = require('stream')
 const readonly = require('streamss-readonly')
 
-// / shim setImmediate for node v0.8.x
-// istanbul ignore if
-if (!global.setImmediate) {
-  global.setImmediate = process.nextTick
-}
-
 /**
  * Concatenate Streams to a readable stream
  *
- * Example: Join two streams:
+ * @example <caption>Join two streams:</caption>
  *
- *     let Through = require('streamss').Through;
- *     let cat = require('streamss-cat');
+ *  const { Through } = require('streamss')
+ *  const cat = require('streamss-cat')
  *
- *     let stream1 = new Through();
- *     let stream2 = new Through();
+ *  const stream1 = new Through()
+ *  const stream2 = new Through()
  *
- *     cat(stream1, stream2).pipe(process.stdout);
- *     //cat([stream1, stream2]).pipe(process.stdout); //< alternatively
+ *  cat(stream1, stream2).pipe(process.stdout)
+ *  // cat([stream1, stream2]).pipe(process.stdout) //< alternatively
  *
- *     stream1.end('hello ');
- *     stream2.end('world');
+ *  stream1.end('hello ')
+ *  stream2.end('world')
  *
- * Example: Join thousand fs-streams with allocating the resources on runtime:
+ * @example <caption>Join thousand fs-streams with allocating the resources on runtime</caption>
  *
- *     let fs = require('fs');
- *     let cat = require('streamss-cat');
- *     let streams = [];
+ *  const fs = require('fs')
+ *  const cat = require('streamss-cat')
+ *  const streams = []
  *
- *     function fnStream() {
- *         return fs.createReadStream(__filename);
- *     }
+ *  function fnStream() {
+ *    return fs.createReadStream(__filename)
+ *  }
  *
- *     for (let i=0; i<1000; i++) {
- *         streams.push(fnStream);
- *     }
+ *  for (let i=0; i<1000; i++) {
+ *    streams.push(fnStream)
+ *  }
  *
- *     cat(streams).pipe(process.stdout);
+ *  cat(streams).pipe(process.stdout)
  *
  * @param {Readable} streams - Array of Readable Streams or Array of Functions returning Readable Streams
  * @return {Readable} A readable stream
@@ -72,12 +66,12 @@ function cat (streams) {
     }
     stream.pipe(out, { end: false })
 
-    stream.on('error', function (err) {
+    stream.on('error', (err) => {
       out.emit('error', err)
     })
 
-    stream.on('end', function () {
-      setImmediate(function () {
+    stream.on('end', () => {
+      setImmediate(() => {
         next(i + 1)
       })
     })
