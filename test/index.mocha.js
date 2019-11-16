@@ -5,16 +5,13 @@
 
 'use strict'
 
-var assert = require('assert')
-var fs = require('fs')
-var path = require('path')
-var Through = require('streamss').Through
-var ReadBuffer = require('streamss').ReadBuffer
-var cat = require('../')
+const assert = require('assert')
+const fs = require('fs')
+const path = require('path')
+const { Through, ReadBuffer } = require('streamss')
+const cat = require('../')
 
-var fixture = path.resolve(__dirname, 'fixtures/abcdef.txt')
-
-/* globals describe, it */
+const fixture = path.resolve(__dirname, 'fixtures/abcdef.txt')
 
 function abc (cnt) {
   return 'abcdefghi' + (cnt === undefined ? '' : cnt) + '\n'
@@ -22,8 +19,8 @@ function abc (cnt) {
 
 describe('#cat', function () {
   it('concatenate one stream', function (done) {
-    var stream = new ReadBuffer(abc(0))
-    var res = []
+    const stream = new ReadBuffer(abc(0))
+    const res = []
 
     cat(stream)
       .pipe(Through(
@@ -38,11 +35,11 @@ describe('#cat', function () {
       )
   })
   it('concatenate three streams', function (done) {
-    var stream1 = new ReadBuffer(abc(1))
-    var stream2 = new ReadBuffer(abc(2))
-    var stream3 = new ReadBuffer(abc(3))
-    var exp = abc(1) + abc(2) + abc(3)
-    var res = ''
+    const stream1 = new ReadBuffer(abc(1))
+    const stream2 = new ReadBuffer(abc(2))
+    const stream3 = new ReadBuffer(abc(3))
+    const exp = abc(1) + abc(2) + abc(3)
+    let res = ''
 
     cat(stream1, stream2, stream3)
       .pipe(Through(
@@ -56,11 +53,11 @@ describe('#cat', function () {
       )
   })
   it('concatenate four streams as Array', function (done) {
-    var streams = []
-    var exp = ''
-    var res = ''
+    const streams = []
+    let exp = ''
+    let res = ''
 
-    for (var i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
       streams.push(new ReadBuffer(abc(i)))
       exp += abc(i)
     }
@@ -77,9 +74,9 @@ describe('#cat', function () {
       )
   })
   it('concatenate thousand streams as functions', function (done) {
-    var streams = []
-    var exp = ''
-    var res = ''
+    const streams = []
+    let exp = ''
+    let res = ''
 
     // allocate the stream resource only as needed
     function getStream (i) {
@@ -88,7 +85,7 @@ describe('#cat', function () {
       }
     }
 
-    for (var i = 0; i < 1000; i++) {
+    for (let i = 0; i < 1000; i++) {
       streams.push(getStream(i))
       exp += abc(i)
     }
@@ -105,9 +102,9 @@ describe('#cat', function () {
       )
   })
   it('concatenate thousand file-streams as functions', function (done) {
-    var streams = []
-    var exp = ''
-    var res = ''
+    const streams = []
+    let exp = ''
+    let res = ''
 
     // allocate the stream resource only as needed
     function getStream () {
@@ -116,7 +113,7 @@ describe('#cat', function () {
       }
     }
 
-    for (var i = 0; i < 1000; i++) {
+    for (let i = 0; i < 1000; i++) {
       streams.push(getStream(i))
       exp += abc()
     }
@@ -133,10 +130,10 @@ describe('#cat', function () {
       )
   })
   it('early end', function (done) {
-    var stream1 = new ReadBuffer(abc(1))
-    var stream2 = new ReadBuffer(abc(2))
-    var res = ''
-    var exp = abc(1) + abc(2)
+    const stream1 = new ReadBuffer(abc(1))
+    const stream2 = new ReadBuffer(abc(2))
+    let res = ''
+    const exp = abc(1) + abc(2)
 
     cat(stream1, stream2)
       .pipe(Through(
@@ -156,8 +153,8 @@ describe('#cat', function () {
     assert.ok(cat().readable === true)
   })
   it('forward errors', function (done) {
-    var stream1 = new ReadBuffer(abc(1))
-    var stream2 = new ReadBuffer(abc(2))
+    const stream1 = new ReadBuffer(abc(1))
+    const stream2 = new ReadBuffer(abc(2))
 
     cat(stream1, stream2)
       .on('error', function (err) {
@@ -168,10 +165,10 @@ describe('#cat', function () {
     stream1.emit('error', new Error())
   })
   it('quick push streams', function (done) {
-    var stream1 = Through()
-    var stream2 = Through()
-    var res = ''
-    var exp = abc(1) + abc(2)
+    const stream1 = Through()
+    const stream2 = Through()
+    let res = ''
+    const exp = abc(1) + abc(2)
 
     cat(stream1, stream2)
       .pipe(Through(

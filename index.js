@@ -8,9 +8,8 @@
 
 'use strict'
 
-var Streams = require('stream')
-var PassThrough = Streams.PassThrough
-var readonly = require('streamss-readonly')
+const { PassThrough } = require('stream')
+const readonly = require('streamss-readonly')
 
 // / shim setImmediate for node v0.8.x
 // istanbul ignore if
@@ -23,11 +22,11 @@ if (!global.setImmediate) {
  *
  * Example: Join two streams:
  *
- *     var Through = require('streamss').Through;
- *     var cat = require('streamss-cat');
+ *     let Through = require('streamss').Through;
+ *     let cat = require('streamss-cat');
  *
- *     var stream1 = new Through();
- *     var stream2 = new Through();
+ *     let stream1 = new Through();
+ *     let stream2 = new Through();
  *
  *     cat(stream1, stream2).pipe(process.stdout);
  *     //cat([stream1, stream2]).pipe(process.stdout); //< alternatively
@@ -37,15 +36,15 @@ if (!global.setImmediate) {
  *
  * Example: Join thousand fs-streams with allocating the resources on runtime:
  *
- *     var fs = require('fs');
- *     var cat = require('streamss-cat');
- *     var streams = [];
+ *     let fs = require('fs');
+ *     let cat = require('streamss-cat');
+ *     let streams = [];
  *
  *     function fnStream() {
  *         return fs.createReadStream(__filename);
  *     }
  *
- *     for (var i=0; i<1000; i++) {
+ *     for (let i=0; i<1000; i++) {
  *         streams.push(fnStream);
  *     }
  *
@@ -55,14 +54,14 @@ if (!global.setImmediate) {
  * @return {Readable} A readable stream
  */
 function cat (streams) {
-  var out = PassThrough()
+  const out = PassThrough()
 
   if (!Array.isArray(streams)) {
     streams = Array.prototype.slice.call(arguments)
   }
 
   (function next (i) {
-    var stream = streams[i]
+    let stream = streams[i]
 
     if (typeof stream === 'function') {
       stream = stream()

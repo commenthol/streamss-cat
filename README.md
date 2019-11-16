@@ -18,11 +18,11 @@ Credits go to [stream-cat][].
 **Join two streams:**
 
 ```js
-var Through = require('streamss').Through;
-var cat = require('streamss-cat');
+let Through = require('streamss').Through;
+let cat = require('streamss-cat');
 
-var stream1 = new Through();
-var stream2 = new Through();
+let stream1 = new Through();
+let stream2 = new Through();
 
 cat(stream1, stream2).pipe(process.stdout);
 //cat([stream1, stream2]).pipe(process.stdout); //< alternatively
@@ -35,15 +35,15 @@ stream2.end('world');
 **Join thousand fs streams with allocating the resources on runtime:**
 
 ```js
-var fs = require('fs');
-var cat = require('../');
-var streams = [];
+let fs = require('fs');
+let cat = require('../');
+let streams = [];
 
 function fnStream() {
 	return fs.createReadStream(__filename);
 }
 
-for (var i=0; i<1000; i++) {
+for (let i=0; i<1000; i++) {
 	streams.push(fnStream);
 }
 

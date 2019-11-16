@@ -1,8 +1,8 @@
-var Through = require('streamss').Through
-var cat = require('../')
+const Through = require('streamss').Through
+const cat = require('../')
 
-var stream1 = new Through()
-var stream2 = new Through()
+const stream1 = new Through()
+const stream2 = new Through()
 
 cat(stream1, stream2).pipe(process.stdout)
 // cat([stream1, stream2]).pipe(process.stdout); //< alternatively
