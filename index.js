@@ -44,7 +44,7 @@ const readonly = require('streamss-readonly')
  *
  *  cat(streams).pipe(process.stdout)
  *
- * @param {Readable} streams - Array of Readable Streams or Array of Functions returning Readable Streams
+ * @param {Readable[]} streams - Array of Readable Streams or Array of Functions returning Readable Streams
  * @return {Readable} A readable stream
  */
 function cat (streams) {
